@@ -1,0 +1,12 @@
+create or replace VIEW cantTransCuentas AS
+
+	SELECT NOCUENTA1,COUNT(NOTRANSACCION) FROM TRANSACCION GROUP BY(NOCUENTA1);
+
+create or replace view salAcumCuentas AS
+
+  SELECT NOCUENTA CUENTA,
+(select sum(cantidad) from transaccion 
+where ((NOCUENTA1=C.NOCUENTA OR NOCUENTA2=C.NOCUENTA))
+)
+ACUMULADO 
+FROM CUENTA C ORDER BY NOCUENTA;
